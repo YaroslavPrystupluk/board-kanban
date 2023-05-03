@@ -7,16 +7,11 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "prepare": "husky install"
+    "preview": "vite preview"
   },
   "dependencies": {
-    "-": "^0.0.1",
-    "bootstrap": "^5.2.3",
-    "eslint-config-airbnb-base": "^15.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "styled-components": "^5.3.10"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
@@ -25,38 +20,9 @@
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react-swc": "^3.0.0",
     "eslint": "^8.38.0",
-    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.2",
-    "prettier": "2.8.8",
     "typescript": "^5.0.2",
     "vite": "^4.3.2"
-  },
-   "lint-staged": {
-		"*.{js,ts,tsx, jsx}": [
-			"eslint --fix"
-		],
-		"*.{json,md,html,js,jsx,ts,tsx}": [
-			"prettier --write --ignore-unknown"
-		]
-	},
-	"jest": {
-		"moduleNameMapper": {
-			"axios": "axios/dist/node/axios.cjs"
-		}
-	},
-	"watch": {
-		"eslint": {
-			"patterns": [
-				"/src/**/*.{js, jsx}"
-			],
-			"development": [
-				"last 1 chrome version",
-				"last 1 firefox version",
-				"last 1 safari version"
-			]
-		}
-	}
+  }
 }
