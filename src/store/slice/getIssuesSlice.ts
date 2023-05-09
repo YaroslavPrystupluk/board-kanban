@@ -23,9 +23,6 @@ const headers = {
   Authorization: `Bearer ${token}`
 };
 
-
-// https://github.com/facebook/react
-
 export const fetchIssues = createAsyncThunk<
   Iissues[], 
    [Owner, Repo],
