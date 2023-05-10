@@ -17,11 +17,11 @@ const initialState: issuesState = {
   error: null,
 };
 
-const token = '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'
+// const token = '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'
 
-const headers = {
-  Authorization: `Bearer ${token}`
-};
+// const headers = {
+//   Authorization: `Bearer ${token}`
+// };
 
 export const fetchIssues = createAsyncThunk<
   Iissues[], 
@@ -29,7 +29,7 @@ export const fetchIssues = createAsyncThunk<
   { rejectValue: string }
 >("issues/fetchIssues", async ([owner, repo], thunkAPI) => {
   try {
-    const response = await axios.get<Iissues[]>(`${DOMAIN}/repos/${owner}/${repo}/issues`, {headers});
+    const response = await axios.get<Iissues[]>(`${DOMAIN}/repos/${owner}/${repo}/issues`);
 	
 	return response.data;
   } catch (error) {
