@@ -8,16 +8,17 @@ import TabletCards from "./components/TabletCartds/TabletCards";
 import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
 import { Iissues } from "./model/Iissues";
 
+interface IMyDragEvent extends DragEvent<HTMLDivElement> {
+  target: HTMLDivElement & { style: CSSStyleDeclaration };
+}
+
 const App: FC = () => {
   const dispatch = useAppDispatch();
   const { issues, loading, error } = useAppSelector((state) => state.issues);
 
   const [repositoryUrl, setRepositoryUrl] = useState<string>("");
-  const [cardList, setCardList] = useState<Iissues[]>([]);
-  console.log(cardList);
-
-  const [currentCard, setCurrentCard] = useState<Iissues>();
-  //   console.log(currentCard);
+  const [currentCard, setCurrentCard] = useState<Iissues | null>(null);
+  //   console.log("currentCard", currentCard);
 
   const url = repositoryUrl.split("/");
   const owner = url[3];
@@ -35,32 +36,42 @@ const App: FC = () => {
     dispatch(fetchIssues([owner, repo]));
   };
 
-  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+  const handleDragOver = (e: IMyDragEvent) => {
     e.preventDefault();
-    e.target.style.background = "lightgrey";
+    e.target.style.boxShadow = "0 4px 3px grey";
   };
   const handleDragStart = (issue: Iissues) => {
+    console.log("drag", issue);
     setCurrentCard(issue);
   };
-  const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
-    e.target.style.background = "white";
+  const handleDragEnd = (e: IMyDragEvent) => {
+    e.target.style.boxShadow = "none";
   };
-  const handleDrop = (e: DragEvent<HTMLDivElement>, issue: Iissues) => {
+  const handleDrop = (e: IMyDragEvent, issue: Iissues) => {
     e.preventDefault();
-    setCardList(
-      cardList.map((i: Iissues): Iissues => {
-        console.log(i);
+    console.log("drop", issue);
 
-        if (i.id === issue.id) {
-          return { ...i, number: currentCard.number };
-        }
-        if (i.id === currentCard.id) {
-          return { ...i, number: issue.number };
-        }
-        return i;
-      })
-    );
-    e.target.style.background = "white";
+    issues.map((i: Iissues): Iissues => {
+      if (i.id === issue.id) {
+        const updatedIssue = { ...i, number: currentCard.number };
+        dispatch(fetchIssues(updatedIssue));
+        console.log("нижній присваюєм верхній", updatedIssue);
+        console.log("нижній присваюєм верхній", issues);
+
+        return updatedIssue;
+      }
+      if (i.id === currentCard.id) {
+        const updatedIssue = { ...i, number: issue.number };
+        dispatch(fetchIssues(updatedIssue));
+        console.log("вкрхній присвоюєм нижній ", updatedIssue);
+        console.log("вкрхній присвоюєм нижній ", issues);
+        return updatedIssue;
+      }
+
+      return i;
+    });
+
+    e.target.style.boxShadow = "none";
   };
 
   const sortCard = (a: Iissues, b: Iissues): number => {
