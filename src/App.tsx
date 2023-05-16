@@ -1,24 +1,18 @@
-import { FC, KeyboardEvent, ChangeEvent, DragEvent, useState } from "react";
+import { FC, KeyboardEvent, ChangeEvent, useState } from "react";
 import { Spinner, Alert, ThemeProvider, Container } from "react-bootstrap";
 
 import { useAppDispatch, useAppSelector } from "./hooks/hook";
 import { fetchIssues } from "./store/slice/getIssuesSlice";
 import SearchIssues from "./components/SearchIssues/SearchIssues";
-import TabletCards from "./components/TabletCartds/TabletCards";
 import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
-import { Iissues } from "./model/Iissues";
-
-interface IMyDragEvent extends DragEvent<HTMLDivElement> {
-  target: HTMLDivElement & { style: CSSStyleDeclaration };
-}
+import Board from "./components/Board/Board";
+import { DropResult } from "react-beautiful-dnd";
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
   const { issues, loading, error } = useAppSelector((state) => state.issues);
 
   const [repositoryUrl, setRepositoryUrl] = useState<string>("");
-  const [currentCard, setCurrentCard] = useState<Iissues | null>(null);
-  //   console.log("currentCard", currentCard);
 
   const url = repositoryUrl.split("/");
   const owner = url[3];
@@ -36,50 +30,19 @@ const App: FC = () => {
     dispatch(fetchIssues([owner, repo]));
   };
 
-  const handleDragOver = (e: IMyDragEvent) => {
-    e.preventDefault();
-    e.target.style.boxShadow = "0 4px 3px grey";
-  };
-  const handleDragStart = (issue: Iissues) => {
-    console.log("drag", issue);
-    setCurrentCard(issue);
-  };
-  const handleDragEnd = (e: IMyDragEvent) => {
-    e.target.style.boxShadow = "none";
-  };
-  const handleDrop = (e: IMyDragEvent, issue: Iissues) => {
-    e.preventDefault();
-    console.log("drop", issue);
+  const handleDragEnd = (result: DropResult) => {
+    console.log("hello", result);
+    const { source, destination, draggableId } = result;
 
-    issues.map((i: Iissues): Iissues => {
-      if (i.id === issue.id) {
-        const updatedIssue = { ...i, number: currentCard.number };
-        dispatch(fetchIssues(updatedIssue));
-        console.log("нижній присваюєм верхній", updatedIssue);
-        console.log("нижній присваюєм верхній", issues);
+    if (!destination) return;
 
-        return updatedIssue;
-      }
-      if (i.id === currentCard.id) {
-        const updatedIssue = { ...i, number: issue.number };
-        dispatch(fetchIssues(updatedIssue));
-        console.log("вкрхній присвоюєм нижній ", updatedIssue);
-        console.log("вкрхній присвоюєм нижній ", issues);
-        return updatedIssue;
-      }
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    )
+      return;
 
-      return i;
-    });
-
-    e.target.style.boxShadow = "none";
-  };
-
-  const sortCard = (a: Iissues, b: Iissues): number => {
-    if (a.number > b.number) {
-      return 1;
-    } else {
-      return -1;
-    }
+    // if()
   };
 
   return (
@@ -107,13 +70,7 @@ const App: FC = () => {
             Error: {error}
           </Alert>
         ) : (
-          <TabletCards
-            handleDragOver={handleDragOver}
-            handleDragStart={handleDragStart}
-            handleDragEnd={handleDragEnd}
-            handleDrop={handleDrop}
-            sortCard={sortCard}
-          />
+          <Board handleDragEnd={handleDragEnd} />
         )}
       </Container>
     </ThemeProvider>

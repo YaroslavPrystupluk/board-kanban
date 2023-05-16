@@ -23,6 +23,12 @@ const initialState: issuesState = {
 //   Authorization: `Bearer ${token}`
 // };
 
+// ,{
+// 		headers:{
+// 			Authorization: `token ${token}`,
+// 		}
+// 	 } 
+
 export const fetchIssues = createAsyncThunk<
   Iissues[], 
    [Owner, Repo],
@@ -30,6 +36,7 @@ export const fetchIssues = createAsyncThunk<
 >("issues/fetchIssues", async ([owner, repo], thunkAPI) => {
   try {
     const response = await axios.get<Iissues[]>(`${DOMAIN}/repos/${owner}/${repo}/issues`);
+	console.log(response.data);
 	
 	return response.data;
   } catch (error) {

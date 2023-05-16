@@ -7,6 +7,7 @@ export interface Iissues {
 	number: number;
 	title: string;
 	updated_at: string;
-	user: IUser
+	user: IUser;
 	comments: string;
+	state: string;
 }
