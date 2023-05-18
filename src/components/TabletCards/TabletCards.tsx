@@ -1,18 +1,17 @@
 import { FC } from "react";
 import { Droppable } from "react-beautiful-dnd";
-import { useAppSelector } from "../../hooks/hook";
 import CardItem from "../CardItem/CardItem";
 
 import { Container, Title, IssuesList } from "./styledTableCards";
+import { Iissues } from "../../model/Iissues";
 
 interface TabletCardsProps {
   title: string;
   id: string;
+  issues: Iissues[];
 }
 
-const TabletCards: FC<TabletCardsProps> = ({ title, id }) => {
-  const { issues } = useAppSelector((state) => state.issues);
-
+const TabletCards: FC<TabletCardsProps> = ({ title, issues, id }) => {
   return (
     <Container>
       <Title>{title}</Title>

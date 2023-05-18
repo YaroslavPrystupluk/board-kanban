@@ -8,8 +8,8 @@ interface issuesState {
   loading: boolean;
   error: string | null;
 }
-type Owner = string
-type Repo = string
+type Owner = string;
+type Repo = string;
 
 const initialState: issuesState = {
   issues: [],
@@ -17,28 +17,17 @@ const initialState: issuesState = {
   error: null,
 };
 
-// const token = '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'
-
-// const headers = {
-//   Authorization: `Bearer ${token}`
-// };
-
-// ,{
-// 		headers:{
-// 			Authorization: `token ${token}`,
-// 		}
-// 	 } 
-
 export const fetchIssues = createAsyncThunk<
-  Iissues[], 
-   [Owner, Repo],
+  Iissues[],
+  [Owner, Repo],
   { rejectValue: string }
 >("issues/fetchIssues", async ([owner, repo], thunkAPI) => {
   try {
-    const response = await axios.get<Iissues[]>(`${DOMAIN}/repos/${owner}/${repo}/issues`);
-	console.log(response.data);
-	
-	return response.data;
+    const response = await axios.get<Iissues[]>(
+      `${DOMAIN}/repos/${owner}/${repo}/issues`);
+   
+
+    return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }
