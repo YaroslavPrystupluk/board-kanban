@@ -11,3 +11,8 @@ export interface Iissues {
 	comments: string;
 	state: string;
 }
+
+export interface Istars {
+	id: number;
+	stargazers_count: number;
+}

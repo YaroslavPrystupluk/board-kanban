@@ -15,18 +15,20 @@ import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
 import Board from "./components/Board/Board";
 import { DropResult } from "react-beautiful-dnd";
 import { Iissues } from "./model/Iissues";
+import { fetchStars } from "./store/slice/getStarsSlice";
+import StarsRepo from "./components/StarsRepo/StarsRepo";
+import { actionStorage } from "./store/slice/getIssuesSlice";
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
   const { issues, loading, error } = useAppSelector((state) => state.issues);
+  const { stars } = useAppSelector((state) => state.stars);
 
   const [repositoryUrl, setRepositoryUrl] = useState<string>("");
   const [open, setOpen] = useState<Iissues[]>([]);
   const [inProgress, setInProgress] = useState<Iissues[]>([]);
   const [closed, setClosed] = useState<Iissues[]>([]);
-
-  console.log("open", open);
-  console.log("closed", closed);
+  const [items, setItems] = useState<Iissues[]>([]);
 
   const url = repositoryUrl.split("/");
   const owner = url[3];
@@ -34,8 +36,9 @@ const App: FC = () => {
 
   useEffect(() => {
     setOpen(issues.filter((issue) => issue.state === "open"));
+    setInProgress(issues.filter((issue) => issue.state === "in progress"));
     setClosed(issues.filter((issue) => issue.state === "closed"));
-  }, [issues, setOpen, setClosed]);
+  }, [issues, setOpen, setClosed, setInProgress]);
 
   const handleKeyDoun = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") dispatch(fetchIssues([owner, repo]));
@@ -45,49 +48,58 @@ const App: FC = () => {
     setRepositoryUrl(e.target.value);
   };
 
+  function saveDataToLocalStorage() {
+    const key = `repo_id ${stars.id}`;
+    const jsonData = JSON.stringify(items);
+    localStorage.setItem(key, jsonData);
+  }
+  saveDataToLocalStorage();
+
   const showIssues = useCallback(() => {
-    dispatch(fetchIssues([owner, repo]));
-  }, [dispatch, owner, repo]);
+    dispatch(fetchStars([owner, repo]));
+    const key = `repo_id ${stars.id}`;
+    const storedItems = localStorage.getItem(key);
+    if (storedItems) {
+      dispatch(actionStorage(JSON.parse(storedItems)));
+    } else {
+      dispatch(fetchIssues([owner, repo]));
+    }
+  }, [dispatch, owner, repo, stars.id]);
 
   const handleDragEnd = (result: DropResult) => {
-    const { source, destination, draggableId } = result;
+    const { source, destination } = result;
 
     if (!destination) return;
 
-    if (source.droppableId === destination.droppableId) return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
+      return;
+    let add: Iissues;
 
-    if (source.droppableId == "1") {
-      setOpen(removeItemById(draggableId, open));
-    } else if (source.droppableId == "2") {
-      setInProgress(removeItemById(draggableId, inProgress));
-    } else if (source.droppableId == "3") {
-      setClosed(removeItemById(draggableId, closed));
+    if (source.droppableId === "1") {
+      add = open[source.index];
+      open.splice(source.index, 1);
+    } else if (source.droppableId === "2") {
+      add = inProgress[source.index];
+      inProgress.splice(source.index, 1);
+    } else {
+      add = closed[source.index];
+      closed.splice(source.index, 1);
     }
 
-    const issue = findItemById(draggableId, [
-      ...closed,
-      ...open,
-      ...inProgress,
-    ]);
-
-    if (destination.droppableId == "1") {
-      setOpen([{ ...issue, state: "open" }, ...open]);
-    } else if (destination.droppableId == "2") {
-      setInProgress([{ ...issue, state: "in progress" }, ...inProgress]);
-    } else if (destination.droppableId == "3") {
-      setClosed([{ ...issue, state: "closed" }, ...closed]);
+    if (destination.droppableId === "1") {
+      open.splice(destination.index, 0, { ...add, state: "open" });
+    } else if (destination.droppableId === "2") {
+      inProgress.splice(destination.index, 0, { ...add, state: "in progress" });
+    } else {
+      closed.splice(destination.index, 0, { ...add, state: "closed" });
     }
+    const arr: Iissues[] = [...open, ...inProgress, ...closed];
+    setItems(arr);
+    //  localStorage.setItem("draggedItems", JSON.stringify(arr));
   };
-
-  function findItemById(id, array) {
-    console.log("array", array);
-
-    return array.find((item) => item.id == id);
-  }
-
-  function removeItemById(id, array) {
-    return array.filter((item) => item.id != id);
-  }
 
   return (
     <Container>
@@ -97,7 +109,23 @@ const App: FC = () => {
         handleChange={handleChange}
         repositoryUrl={repositoryUrl}
       />
-      {issues.length > 0 && <Breadcrumbs owner={owner} repo={repo} />}
+      {issues.length > 0 && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            gap: "30px",
+          }}
+        >
+          <Breadcrumbs
+            owner={owner}
+            repo={repo}
+            repositoryUrl={repositoryUrl}
+          />
+          <StarsRepo stars={stars} />
+        </div>
+      )}
 
       {loading ? (
         <Spinner

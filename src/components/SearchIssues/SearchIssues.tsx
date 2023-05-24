@@ -1,5 +1,5 @@
 import { FC, ChangeEvent, KeyboardEvent } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Form, Stack } from "react-bootstrap";
 
 interface SearchIssuesProps {
   handleKeyDoun: (e: KeyboardEvent<HTMLInputElement>) => void;
@@ -15,26 +15,26 @@ const SearchIssues: FC<SearchIssuesProps> = ({
   repositoryUrl,
 }) => {
   return (
-    <Container className="mt-3">
-      <Row>
-        <Col md={10}>
-          <Form.Control
-            as="input"
-            type="text"
-            name="search"
-            value={repositoryUrl}
-            onChange={handleChange}
-            onKeyDown={handleKeyDoun}
-            placeholder="Enter repository URL"
-          />
-        </Col>
-        <Col>
-          <Button variant="outline-success" type="submit" onClick={showIssues}>
-            Load issues
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+    <Stack className="mb-3 mt-4" direction="horizontal" gap={3}>
+      <Form.Control
+        className="me-auto"
+        as="input"
+        type="text"
+        name="search"
+        value={repositoryUrl}
+        onChange={handleChange}
+        onKeyDown={handleKeyDoun}
+        placeholder="Enter repository URL"
+      />
+      <Button
+        className="text-nowrap"
+        variant="outline-success"
+        type="submit"
+        onClick={showIssues}
+      >
+        Load issues
+      </Button>
+    </Stack>
   );
 };
 

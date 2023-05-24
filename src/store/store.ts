@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import searchIssuesReducer from "./slice/getIssuesSlice";
+import starsReducers from "./slice/getStarsSlice";
 
 const store = configureStore({
 	reducer: {
-issues: searchIssuesReducer
+issues: searchIssuesReducer,
+stars: starsReducers,
 	}
 });
 

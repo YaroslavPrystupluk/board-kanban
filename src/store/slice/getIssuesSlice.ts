@@ -26,7 +26,6 @@ export const fetchIssues = createAsyncThunk<
     const response = await axios.get<Iissues[]>(
       `${DOMAIN}/repos/${owner}/${repo}/issues`);
    
-
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
@@ -35,7 +34,11 @@ export const fetchIssues = createAsyncThunk<
 export const searchIssuesSlice = createSlice({
   name: "issues",
   initialState,
-  reducers: {},
+  reducers: {
+	actionStorage: (state, action) => {
+      state.issues = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchIssues.pending, (state) => {
@@ -53,4 +56,5 @@ export const searchIssuesSlice = createSlice({
   },
 });
 
+export const { actionStorage } = searchIssuesSlice.actions
 export default searchIssuesSlice.reducer;

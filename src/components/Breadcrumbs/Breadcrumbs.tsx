@@ -1,25 +1,29 @@
 import { FC } from "react";
 import { Breadcrumb } from "react-bootstrap";
+
+import { StyledBreadcrumb, Separator } from "./styledBreadcrumbs";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 interface BreadcrumbsProps {
   owner: string;
   repo: string;
+  repositoryUrl: string;
 }
 
-const Breadcrumbs: FC<BreadcrumbsProps> = ({ owner, repo }) => {
+const Breadcrumbs: FC<BreadcrumbsProps> = ({ owner, repo, repositoryUrl }) => {
   return (
-    <Breadcrumb className="mt-3" style={{ textTransform: "capitalize" }}>
+    <StyledBreadcrumb className="mt-3" style={{ textTransform: "capitalize" }}>
       <Breadcrumb.Item href={`https://github.com/${owner}`} target="_blanck">
         {owner}
       </Breadcrumb.Item>
+      {repositoryUrl.length > 0 && <Separator>{">"}</Separator>}
       <Breadcrumb.Item
         href={`https://github.com/${owner}/${repo}`}
         target="_blanck"
       >
         {repo}
       </Breadcrumb.Item>
-    </Breadcrumb>
+    </StyledBreadcrumb>
   );
 };
 

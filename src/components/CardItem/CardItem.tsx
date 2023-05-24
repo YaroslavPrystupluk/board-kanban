@@ -22,15 +22,23 @@ const Cardissue: FC<CardissueProps> = ({ issue, index }) => {
       : `opened ${updatedate.toLocaleDateString()}`;
 
   return (
-    <Draggable draggableId={`${issue.id}`} key={issue.id} index={index}>
+    <Draggable
+      draggableId={`${issue.id.toString()}`}
+      key={issue.id}
+      index={index}
+    >
       {(provided, snapshot) => (
         <CardWrapp
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          //  isDragging={snapshot.isDragging}
         >
-          <Card.Body>
+          <Card.Body
+            style={{
+              borderRadius: "10px",
+              background: snapshot.isDragging ? "#49bcf8" : "#eaf4fc",
+            }}
+          >
             <Card.Title>{issue.title}</Card.Title>
             <Card.Text>
               #{issue.number} {date}
@@ -40,7 +48,6 @@ const Cardissue: FC<CardissueProps> = ({ issue, index }) => {
             </Card.Text>
             <Card.Text>State: {issue.state}</Card.Text>
           </Card.Body>
-          {/* {provided.placeholder} */}
         </CardWrapp>
       )}
     </Draggable>

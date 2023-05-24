@@ -14,7 +14,9 @@ interface TabletCardsProps {
 const TabletCards: FC<TabletCardsProps> = ({ title, issues, id }) => {
   return (
     <Container>
-      <Title>{title}</Title>
+      <Title
+		
+		>{title}</Title>
       <Droppable droppableId={id}>
         {(provided) => (
           <IssuesList ref={provided.innerRef} {...provided.droppableProps}>
