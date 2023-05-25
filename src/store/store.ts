@@ -4,9 +4,9 @@ import starsReducers from "./slice/getStarsSlice";
 
 const store = configureStore({
 	reducer: {
-issues: searchIssuesReducer,
-stars: starsReducers,
-	}
+		issues: searchIssuesReducer,
+		stars: starsReducers,
+	},
 });
 
 export type RootState = ReturnType<typeof store.getState>;
