@@ -29,6 +29,7 @@ const App: FC = () => {
   const [inProgress, setInProgress] = useState<Iissues[]>([]);
   const [closed, setClosed] = useState<Iissues[]>([]);
   const [items, setItems] = useState<Iissues[]>([]);
+  console.log(items);
 
   const url = repositoryUrl.split("/");
   const owner = url[3];
@@ -48,23 +49,22 @@ const App: FC = () => {
     setRepositoryUrl(e.target.value);
   };
 
-  function saveDataToLocalStorage() {
-    const key = `repo_id ${stars.id}`;
+  function saveDataToLocalStorage(items) {
+    const key = repo;
     const jsonData = JSON.stringify(items);
     localStorage.setItem(key, jsonData);
   }
-  saveDataToLocalStorage();
 
   const showIssues = useCallback(() => {
     dispatch(fetchStars([owner, repo]));
-    const key = `repo_id ${stars.id}`;
+    const key = repo;
     const storedItems = localStorage.getItem(key);
     if (storedItems) {
       dispatch(actionStorage(JSON.parse(storedItems)));
     } else {
       dispatch(fetchIssues([owner, repo]));
     }
-  }, [dispatch, owner, repo, stars.id]);
+  }, [dispatch, owner, repo]);
 
   const handleDragEnd = (result: DropResult) => {
     const { source, destination } = result;
@@ -76,8 +76,8 @@ const App: FC = () => {
       destination.index === source.index
     )
       return;
-    let add: Iissues;
 
+    let add: Iissues;
     if (source.droppableId === "1") {
       add = open[source.index];
       open.splice(source.index, 1);
@@ -96,9 +96,10 @@ const App: FC = () => {
     } else {
       closed.splice(destination.index, 0, { ...add, state: "closed" });
     }
+
     const arr: Iissues[] = [...open, ...inProgress, ...closed];
     setItems(arr);
-    //  localStorage.setItem("draggedItems", JSON.stringify(arr));
+    saveDataToLocalStorage(arr);
   };
 
   return (
