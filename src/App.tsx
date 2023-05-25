@@ -49,7 +49,7 @@ const App: FC = () => {
     setRepositoryUrl(e.target.value);
   };
 
-  function saveDataToLocalStorage(items) {
+  function saveDataToLocalStorage(items: Iissues[]) {
     const key = repo;
     const jsonData = JSON.stringify(items);
     localStorage.setItem(key, jsonData);
