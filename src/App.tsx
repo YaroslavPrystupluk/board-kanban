@@ -59,8 +59,6 @@ const App: FC = () => {
 		}
 	}, [dispatch, owner, repo]);
 
-	// 1411
-
 	const handleDragEnd = (result: DropResult) => {
 		const { source, destination } = result;
 
