@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for store/slice/getStarsSlice.ts</title>
+    <title>Code coverage report for store/slice/getIssuesSlice.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">store/slice</a> getStarsSlice.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">store/slice</a> getIssuesSlice.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>53/53</span>
+                <span class='fraction'>58/58</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/53</span>
+                <span class='fraction'>58/58</span>
             </div>
         
             
@@ -116,7 +116,12 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -146,6 +151,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -172,27 +182,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { DOMAIN } from "../../config/API";
-import { Istars } from "../../model/Iissues";
+import { Iissues } from "../../model/Iissues";
 &nbsp;
-interface starsState {
-	stars: Istars;
+interface issuesState {
+	issues: Iissues[];
 	loading: boolean;
 	error: string | null;
 }
 type Owner = string;
 type Repo = string;
 &nbsp;
-const initialState: starsState = {
-	stars: { stargazers_count: 0, id: 0 },
+const initialState: issuesState = {
+	issues: [],
 	loading: false,
 	error: null,
 };
 &nbsp;
-export const fetchStars = createAsyncThunk&lt;Istars, [Owner, Repo], { rejectValue: string }&gt;(
-	"stars/fetchStars",
+export const fetchIssues = createAsyncThunk&lt;Iissues[], [Owner, Repo], { rejectValue: string }&gt;(
+	"issues/fetchIssues",
 	async ([owner, repo], thunkAPI) =&gt; {
 		try {
-			const response = await axios.get&lt;Istars&gt;(`${DOMAIN}/repos/${owner}/${repo}`);
+			const response = await axios.get&lt;Iissues[]&gt;(`${DOMAIN}/repos/${owner}/${repo}/issues`);
 &nbsp;
 			return response.data;
 		} catch (error) {
@@ -200,28 +210,33 @@ export const fetchStars = createAsyncThunk&lt;Istars, [Owner, Repo], { rejectVal
 		}
 	},
 );
-export const starsSlice = createSlice({
-	name: "stars",
+export const searchIssuesSlice = createSlice({
+	name: "issues",
 	initialState,
-	reducers: {},
+	reducers: {
+		actionStorage: (state, action) =&gt; {
+			state.issues = action.payload;
+		},
+	},
 	extraReducers: (builder) =&gt; {
 		builder
-			.addCase(fetchStars.pending, (state) =&gt; {
+			.addCase(fetchIssues.pending, (state) =&gt; {
 				state.loading = true;
 				state.error = null;
 			})
-			.addCase(fetchStars.fulfilled, (state, action) =&gt; {
+			.addCase(fetchIssues.fulfilled, (state, action) =&gt; {
 				state.loading = false;
-				state.stars = action.payload;
+				state.issues = action.payload;
 			})
-			.addCase(fetchStars.rejected, (state, action) =&gt; {
+			.addCase(fetchIssues.rejected, (state, action) =&gt; {
 				state.loading = false;
 				state.error = action.error.message;
 			});
 	},
 });
 &nbsp;
-export default starsSlice.reducer;
+export const { actionStorage } = searchIssuesSlice.actions;
+export default searchIssuesSlice.reducer;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

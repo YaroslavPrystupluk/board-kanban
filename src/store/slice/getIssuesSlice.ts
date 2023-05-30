@@ -49,7 +49,7 @@ export const searchIssuesSlice = createSlice({
 			})
 			.addCase(fetchIssues.rejected, (state, action) => {
 				state.loading = false;
-				state.error = action.payload;
+				state.error = action.error.message;
 			});
 	},
 });

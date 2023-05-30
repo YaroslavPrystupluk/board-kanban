@@ -1,26 +1,34 @@
 import axios from "axios";
 import { beforeEach, describe, it, vi, expect, Mock } from "vitest";
-import { fetchStars, starsSlice } from "../getStarsSlice";
+import { fetchIssues, searchIssuesSlice, actionStorage } from "../getIssuesSlice";
 import { DOMAIN } from "../../../config/API";
 
 const mockState = {
-	stars: { stargazers_count: 0, id: 0 },
+	issues: [],
 	loading: false,
 	error: null,
 };
 
 const mockResponseData = {
-	data: {
-		id: 1,
-		stargazers_count: 5,
-	},
+	data: [
+		{
+			id: 1,
+			number: 2,
+			title: "string",
+			updated_at: "string",
+			user: {
+				type: " string",
+			},
+			comments: "string",
+		},
+	],
 };
 
 const owner = "facebook";
 const repo = "react";
 
 vi.mock("axios");
-describe("testing 'getStarsSlice'", () => {
+describe("testing 'getIssuesSlice'", () => {
 	const dispatchMock = vi.fn();
 	const rejectWithValueMock = vi.fn();
 	beforeEach(() => {
@@ -31,7 +39,7 @@ describe("testing 'getStarsSlice'", () => {
 		const mockedAxios = axios.get as Mock;
 		mockedAxios.mockResolvedValue(mockResponseData);
 
-		await fetchStars([owner, repo])(dispatchMock, rejectWithValueMock, () => {
+		await fetchIssues([owner, repo])(dispatchMock, rejectWithValueMock, () => {
 			null;
 		});
 
@@ -40,9 +48,9 @@ describe("testing 'getStarsSlice'", () => {
 		const [start, end] = calls;
 
 		expect(calls).toHaveLength(2);
-		expect(axios.get).toHaveBeenCalledWith(`${DOMAIN}/repos/${owner}/${repo}`);
-		expect(start[0].type).toBe(fetchStars.pending.type);
-		expect(end[0].type).toBe(fetchStars.fulfilled.type);
+		expect(axios.get).toHaveBeenCalledWith(`${DOMAIN}/repos/${owner}/${repo}/issues`);
+		expect(start[0].type).toBe(fetchIssues.pending.type);
+		expect(end[0].type).toBe(fetchIssues.fulfilled.type);
 		expect(end[0].payload).toEqual(mockResponseData.data);
 	});
 
@@ -53,7 +61,7 @@ describe("testing 'getStarsSlice'", () => {
 
 		mockedAxios.mockRejectedValue(new Error(mockErrorMessage));
 
-		await fetchStars([owner, repo])(dispatchMock, rejectWithValueMock, () => {
+		await fetchIssues([owner, repo])(dispatchMock, rejectWithValueMock, () => {
 			null;
 		});
 
@@ -62,16 +70,23 @@ describe("testing 'getStarsSlice'", () => {
 		const [start, end] = calls;
 
 		expect(calls).toHaveLength(2);
-		expect(axios.get).toHaveBeenCalledWith(`${DOMAIN}/repos/${owner}/${repo}`);
-		expect(start[0].type).toBe(fetchStars.pending.type);
-		expect(end[0].type).toBe(fetchStars.rejected.type);
+		expect(axios.get).toHaveBeenCalledWith(`${DOMAIN}/repos/${owner}/${repo}/issues`);
+		expect(start[0].type).toBe(fetchIssues.pending.type);
+		expect(end[0].type).toBe(fetchIssues.rejected.type);
 		expect(end[0].payload).toBe("Request failed");
 	});
 });
 
-describe("testing starsSlice", () => {
+describe("testing searchIssuesSlice", () => {
+	it("should read from local storage", () => {
+		const action = { type: actionStorage.type, payload: mockResponseData.data };
+		const result = searchIssuesSlice.reducer(mockState, action);
+
+		expect(result.issues).toEqual(mockResponseData.data);
+	});
+
 	it("should handle pending state", () => {
-		const newState = starsSlice.reducer(mockState, { type: fetchStars.pending.type });
+		const newState = searchIssuesSlice.reducer(mockState, { type: fetchIssues.pending.type });
 
 		expect(newState.loading).toBe(true);
 		expect(newState.error).toBeNull;
@@ -79,21 +94,21 @@ describe("testing starsSlice", () => {
 
 	it("should handle fulfilled state", () => {
 		const payload = mockResponseData.data;
-		const newState = starsSlice.reducer(
+		const newState = searchIssuesSlice.reducer(
 			mockState,
-			fetchStars.fulfilled(payload, "arg", [owner, repo]),
+			fetchIssues.fulfilled(payload, "arg", [owner, repo]),
 		);
 
 		expect(newState.loading).toBe(false);
-		expect(newState.stars).toEqual(payload);
+		expect(newState.issues).toEqual(payload);
 		expect(newState.error).toBeNull;
 	});
 
 	it("should handle rejected state", () => {
 		const payload = new Error("Request failed");
-		const newState = starsSlice.reducer(
+		const newState = searchIssuesSlice.reducer(
 			mockState,
-			fetchStars.rejected(payload, "arg", [owner, repo]),
+			fetchIssues.rejected(payload, "arg", [owner, repo]),
 		);
 		expect(newState.loading).toBe(false);
 		expect(newState.error).toBe("Request failed");
