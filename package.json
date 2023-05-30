@@ -10,7 +10,9 @@
 		"preview": "vite preview",
 		"prepare": "husky install",
 		"prettier": "prettier --write .",
-		"eslint:fix": "eslint --fix ."
+		"eslint:fix": "eslint --fix .",
+		"test": "vitest",
+		"coverage": "vitest run --coverage"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.9.5",
@@ -25,6 +27,9 @@
 		"styled-components": "^5.3.10"
 	},
 	"devDependencies": {
+		"@testing-library/jest-dom": "^5.16.5",
+		"@testing-library/react": "^14.0.0",
+		"@testing-library/user-event": "^14.4.3",
 		"@types/react": "^18.0.28",
 		"@types/react-beautiful-dnd": "^13.1.4",
 		"@types/react-dom": "^18.0.11",
@@ -32,16 +37,19 @@
 		"@typescript-eslint/eslint-plugin": "^5.57.1",
 		"@typescript-eslint/parser": "^5.57.1",
 		"@vitejs/plugin-react-swc": "^3.0.0",
+		"@vitest/coverage-c8": "^0.31.1",
 		"eslint": "^8.38.0",
 		"eslint-config-airbnb-base": "^15.0.0",
 		"eslint-config-prettier": "^8.8.0",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-react-refresh": "^0.3.4",
 		"husky": "^8.0.3",
+		"jsdom": "^22.0.0",
 		"lint-staged": "^13.2.2",
 		"prettier": "2.8.8",
 		"typescript": "^5.0.2",
-		"vite": "^4.3.2"
+		"vite": "^4.3.2",
+		"vitest": "^0.31.1"
 	},
 	"lint-staged": {
 		"*.{js,ts,tsx, jsx}": [

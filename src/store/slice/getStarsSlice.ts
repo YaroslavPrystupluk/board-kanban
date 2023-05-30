@@ -45,7 +45,7 @@ export const starsSlice = createSlice({
 			})
 			.addCase(fetchStars.rejected, (state, action) => {
 				state.loading = false;
-				state.error = action.payload;
+				state.error = action.error.message;
 			});
 	},
 });

@@ -21,8 +21,6 @@ const App: FC = () => {
 	const [open, setOpen] = useState<Iissues[]>([]);
 	const [inProgress, setInProgress] = useState<Iissues[]>([]);
 	const [closed, setClosed] = useState<Iissues[]>([]);
-	const [items, setItems] = useState<Iissues[]>([]);
-	console.log(items);
 
 	const url = repositoryUrl.split("/");
 	const owner = url[3];
@@ -35,7 +33,7 @@ const App: FC = () => {
 	}, [issues, setOpen, setClosed, setInProgress]);
 
 	const handleKeyDoun = (e: KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter") dispatch(fetchIssues([owner, repo]));
+		if (e.key === "Enter") showIssues();
 	};
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +86,6 @@ const App: FC = () => {
 		}
 
 		const arr: Iissues[] = [...open, ...inProgress, ...closed];
-		setItems(arr);
 		saveDataToLocalStorage(arr);
 	};
 

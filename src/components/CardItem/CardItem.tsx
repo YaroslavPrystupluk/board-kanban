@@ -38,7 +38,6 @@ const Cardissue: FC<CardissueProps> = ({ issue, index }) => {
 						<Card.Text>
 							{issue.user.type} | Comments: {issue.comments}
 						</Card.Text>
-						<Card.Text>State: {issue.state}</Card.Text>
 					</Card.Body>
 				</CardWrapp>
 			)}
