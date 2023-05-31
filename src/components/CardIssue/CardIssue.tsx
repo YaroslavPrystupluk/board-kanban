@@ -5,12 +5,12 @@ import { Draggable } from "react-beautiful-dnd";
 
 import { CardWrapp } from "./styledCardItem";
 
-interface CardissueProps {
+interface CardIssueProps {
 	issue: Iissues;
 	index: number;
 }
 
-const Cardissue: FC<CardissueProps> = ({ issue, index }) => {
+const CardIssue: FC<CardIssueProps> = ({ issue, index }) => {
 	const today = new Date();
 	const updatedate = new Date(issue.updated_at);
 	const diffInMs = today.getTime() - updatedate.getTime();
@@ -32,10 +32,10 @@ const Cardissue: FC<CardissueProps> = ({ issue, index }) => {
 							background: snapshot.isDragging ? "#49bcf8" : "#eaf4fc",
 						}}>
 						<Card.Title>{issue.title}</Card.Title>
-						<Card.Text>
+						<Card.Text data-testid="date">
 							#{issue.number} {date}
 						</Card.Text>
-						<Card.Text>
+						<Card.Text data-testid="user">
 							{issue.user.type} | Comments: {issue.comments}
 						</Card.Text>
 					</Card.Body>
@@ -45,4 +45,4 @@ const Cardissue: FC<CardissueProps> = ({ issue, index }) => {
 	);
 };
 
-export default Cardissue;
+export default CardIssue;

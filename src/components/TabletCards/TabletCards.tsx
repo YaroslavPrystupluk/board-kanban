@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Droppable } from "react-beautiful-dnd";
-import CardItem from "../CardItem/CardItem";
+import CardItem from "../CardIssue/CardIssue";
 
 import { Container, Title, IssuesList } from "./styledTableCards";
 import { Iissues } from "../../model/Iissues";
@@ -17,7 +17,7 @@ const TabletCards: FC<TabletCardsProps> = ({ title, issues, id }) => {
 			<Title>{title}</Title>
 			<Droppable droppableId={id}>
 				{(provided) => (
-					<IssuesList ref={provided.innerRef} {...provided.droppableProps}>
+					<IssuesList data-testid="IssuesList" ref={provided.innerRef} {...provided.droppableProps}>
 						{issues.map((issue, index) => (
 							<CardItem key={issue.id} issue={issue} index={index} />
 						))}

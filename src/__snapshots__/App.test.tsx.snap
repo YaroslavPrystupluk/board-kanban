@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`testing component 'App' > renders app with issues and stars 1`] = `<div />`;

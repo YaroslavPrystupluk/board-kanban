@@ -19,6 +19,6 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true
 	},
-	"include": ["src"],
+	"include": ["src", "src/components/CardItem/CardIssue.tsx"],
 	"references": [{ "path": "./tsconfig.node.json" }]
 }

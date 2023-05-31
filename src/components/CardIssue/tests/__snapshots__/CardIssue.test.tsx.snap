@@ -1,0 +1,61 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`testing component 'CardItem' > should match the snapshot and drag and drop works 1`] = `
+<div>
+  <div
+    class="sc-gTRrQi knKbOs"
+  >
+    <h3
+      class="sc-ewnqHT kuAEn"
+    >
+      Some Title
+    </h3>
+    <div
+      class="sc-fFGjHI bkgfzW"
+      data-rbd-droppable-context-id="0"
+      data-rbd-droppable-id="1"
+      data-testid="IssuesList"
+    >
+      <div
+        aria-describedby="rbd-hidden-text-0-hidden-text-0"
+        class="sc-bgqQcB gRmaKt card"
+        data-rbd-drag-handle-context-id="0"
+        data-rbd-drag-handle-draggable-id="1"
+        data-rbd-draggable-context-id="0"
+        data-rbd-draggable-id="1"
+        draggable="false"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="card-body"
+          style="border-radius: 10px; background: rgb(234, 244, 252);"
+        >
+          <div
+            class="card-title h5"
+          >
+            Sample Issue
+          </div>
+          <p
+            class="card-text"
+            data-testid="date"
+          >
+            #
+            2
+             
+            opened 31.05.2023
+          </p>
+          <p
+            class="card-text"
+            data-testid="user"
+          >
+            User
+             | Comments: 
+            3
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

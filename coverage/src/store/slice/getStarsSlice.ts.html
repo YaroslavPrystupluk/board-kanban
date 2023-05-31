@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for store/slice/getIssuesSlice.ts</title>
+    <title>Code coverage report for src/store/slice/getStarsSlice.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">store/slice</a> getIssuesSlice.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/store/slice</a> getStarsSlice.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>58/58</span>
+                <span class='fraction'>53/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>58/58</span>
+                <span class='fraction'>53/53</span>
             </div>
         
             
@@ -116,12 +116,7 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -157,52 +152,47 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { DOMAIN } from "../../config/API";
-import { Iissues } from "../../model/Iissues";
+import { Istars } from "../../model/Iissues";
 &nbsp;
-interface issuesState {
-	issues: Iissues[];
+interface starsState {
+	stars: Istars;
 	loading: boolean;
 	error: string | null;
 }
 type Owner = string;
 type Repo = string;
 &nbsp;
-const initialState: issuesState = {
-	issues: [],
+const initialState: starsState = {
+	stars: { stargazers_count: 0, id: 0 },
 	loading: false,
 	error: null,
 };
 &nbsp;
-export const fetchIssues = createAsyncThunk&lt;Iissues[], [Owner, Repo], { rejectValue: string }&gt;(
-	"issues/fetchIssues",
+export const fetchStars = createAsyncThunk&lt;Istars, [Owner, Repo], { rejectValue: string }&gt;(
+	"stars/fetchStars",
 	async ([owner, repo], thunkAPI) =&gt; {
 		try {
-			const response = await axios.get&lt;Iissues[]&gt;(`${DOMAIN}/repos/${owner}/${repo}/issues`);
+			const response = await axios.get&lt;Istars&gt;(`${DOMAIN}/repos/${owner}/${repo}`);
 &nbsp;
 			return response.data;
 		} catch (error) {
@@ -210,33 +200,28 @@ export const fetchIssues = createAsyncThunk&lt;Iissues[], [Owner, Repo], { rejec
 		}
 	},
 );
-export const searchIssuesSlice = createSlice({
-	name: "issues",
+export const starsSlice = createSlice({
+	name: "stars",
 	initialState,
-	reducers: {
-		actionStorage: (state, action) =&gt; {
-			state.issues = action.payload;
-		},
-	},
+	reducers: {},
 	extraReducers: (builder) =&gt; {
 		builder
-			.addCase(fetchIssues.pending, (state) =&gt; {
+			.addCase(fetchStars.pending, (state) =&gt; {
 				state.loading = true;
 				state.error = null;
 			})
-			.addCase(fetchIssues.fulfilled, (state, action) =&gt; {
+			.addCase(fetchStars.fulfilled, (state, action) =&gt; {
 				state.loading = false;
-				state.issues = action.payload;
+				state.stars = action.payload;
 			})
-			.addCase(fetchIssues.rejected, (state, action) =&gt; {
+			.addCase(fetchStars.rejected, (state, action) =&gt; {
 				state.loading = false;
 				state.error = action.error.message;
 			});
 	},
 });
 &nbsp;
-export const { actionStorage } = searchIssuesSlice.actions;
-export default searchIssuesSlice.reducer;
+export default starsSlice.reducer;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -244,16 +229,16 @@ export default searchIssuesSlice.reducer;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-30T12:22:51.958Z
+                at 2023-05-31T14:16:38.397Z
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
     </body>
 </html>
     

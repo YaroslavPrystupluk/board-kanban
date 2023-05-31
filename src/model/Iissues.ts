@@ -9,7 +9,7 @@ export interface Iissues {
 	updated_at: string;
 	user: IUser;
 	comments: string;
-	state: string;
+	state?: string;
 }
 
 export interface Istars {
