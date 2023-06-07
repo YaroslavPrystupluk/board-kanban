@@ -25,6 +25,7 @@ const SearchIssues: FC<SearchIssuesProps> = ({
 				onChange={handleChange}
 				onKeyDown={handleKeyDoun}
 				placeholder="Enter repository URL"
+				data-testid="input-search"
 			/>
 			<Button className="text-nowrap" variant="outline-success" type="submit" onClick={showIssues}>
 				Load issues

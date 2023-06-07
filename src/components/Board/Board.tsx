@@ -16,9 +16,9 @@ const Board: FC<BoardProps> = ({ handleDragEnd, open, inProgress, closed }) => {
 	return (
 		<DragDropContext onDragEnd={handleDragEnd}>
 			<WrapBoard>
-				<TabletCards data-testid="isues-list" title="To Do" issues={open} id="1" />
-				<TabletCards data-testid="isues-list" title="In Progress" issues={inProgress} id="2" />
-				<TabletCards data-testid="isues-list" title="Done" issues={closed} id="3" />
+				<TabletCards title="To Do" issues={open} id="1" />
+				<TabletCards title="In Progress" issues={inProgress} id="2" />
+				<TabletCards title="Done" issues={closed} id="3" />
 			</WrapBoard>
 		</DragDropContext>
 	);

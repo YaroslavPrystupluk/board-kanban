@@ -18,18 +18,19 @@ exports[`testing component 'CardItem' > should match the snapshot and drag and d
     >
       <div
         aria-describedby="rbd-hidden-text-0-hidden-text-0"
-        class="sc-bgqQcB gRmaKt card"
+        class="sc-bgqQcB fVoBam card"
         data-rbd-drag-handle-context-id="0"
         data-rbd-drag-handle-draggable-id="1"
         data-rbd-draggable-context-id="0"
         data-rbd-draggable-id="1"
+        data-testid="card-wrapper"
         draggable="false"
         role="button"
         tabindex="0"
       >
         <div
           class="card-body"
-          style="border-radius: 10px; background: rgb(234, 244, 252);"
+          data-testid="card-body"
         >
           <div
             class="card-title h5"
@@ -43,7 +44,7 @@ exports[`testing component 'CardItem' > should match the snapshot and drag and d
             #
             2
              
-            opened 31.05.2023
+            opened 06.06.2023
           </p>
           <p
             class="card-text"

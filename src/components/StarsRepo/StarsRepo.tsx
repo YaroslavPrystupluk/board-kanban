@@ -18,7 +18,7 @@ const StarsRepo: FC<StarsRepoProps> = ({ stars }) => {
 	const starsNum = formattedNumber();
 
 	return (
-		<div style={{ display: "flex", alignItems: "center", fontSize: "20px" }}>
+		<div data-testid="star" style={{ display: "flex", alignItems: "center", fontSize: "20px" }}>
 			<AiFillStar style={{ color: "#e67700", fontSize: "30px" }} />
 			{starsNum} stars
 		</div>

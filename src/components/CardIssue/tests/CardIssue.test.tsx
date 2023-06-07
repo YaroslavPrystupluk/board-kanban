@@ -1,8 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import CardIssue from "../CardIssue";
 import TabletCards from "../../TabletCards/TabletCards";
+import { CardWrapp } from "../styledCardItem";
 
 const mockIssue = {
 	id: 1,
@@ -29,9 +30,8 @@ describe("testing component 'CardItem'", () => {
 							title="Some Title"
 							issues={[mockIssue]}
 							id="1"
-							{...provided.draggableProps}
-							{...provided.dragHandleProps}
-							ref={provided.innerRef}>
+							ref={provided.innerRef}
+							{...provided.droppableProps}>
 							<Draggable
 								draggableId={`${mockIssue.id.toString()}`}
 								key={mockIssue.id}
@@ -42,7 +42,6 @@ describe("testing component 'CardItem'", () => {
 										index={mockIndex}
 										{...provided.draggableProps}
 										{...provided.dragHandleProps}
-										ref={provided.innerRef}
 									/>
 								)}
 							</Draggable>
@@ -56,6 +55,7 @@ describe("testing component 'CardItem'", () => {
 
 		const draggableElement = screen.getByTestId("IssuesList");
 		expect(draggableElement).toBeInTheDocument();
+		fireEvent.dragStart(draggableElement);
 	});
 
 	it("renders the correct date based on the provided values", () => {
@@ -67,9 +67,8 @@ describe("testing component 'CardItem'", () => {
 							title="Some Title"
 							issues={[mockIssue]}
 							id="1"
-							{...provided.draggableProps}
-							{...provided.dragHandleProps}
-							ref={provided.innerRef}>
+							ref={provided.innerRef}
+							{...provided.droppableProps}>
 							<Draggable
 								draggableId={`${mockIssue.id.toString()}`}
 								key={mockIssue.id}
@@ -80,7 +79,6 @@ describe("testing component 'CardItem'", () => {
 										index={mockIndex}
 										{...provided.draggableProps}
 										{...provided.dragHandleProps}
-										ref={provided.innerRef}
 									/>
 								)}
 							</Draggable>
@@ -91,5 +89,18 @@ describe("testing component 'CardItem'", () => {
 		);
 		const dateElement = screen.getByTestId("date");
 		expect(dateElement).toBeInTheDocument();
+	});
+
+	it("renders with correct styles when dragging is true", () => {
+		const { container } = render(<CardWrapp isDragging />);
+		const cardWrappElement = container.firstChild;
+
+		expect(cardWrappElement).toHaveStyle(`
+      border-radius: 10px;
+      box-shadow: 5px 5px 5px 2px grey;
+      margin: 0 10px 8px 10px;
+      cursor: grab;
+      background: #49bcf8;
+    `);
 	});
 });

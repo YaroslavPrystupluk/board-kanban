@@ -6,6 +6,7 @@ const CardWrapp = styled(Card)`
 	box-shadow: 5px 5px 5px 2px grey;
 	margin: 0 10px 8px 10px;
 	cursor: grab;
+	background: ${(props) => (props.isDragging ? "#49bcf8" : "#eaf4fc")};
 `;
 
 export { CardWrapp };

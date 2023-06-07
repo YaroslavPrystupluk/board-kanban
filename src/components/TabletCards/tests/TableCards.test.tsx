@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { findByText, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import TabletCards from "../TabletCards";
 import { DragDropContext } from "react-beautiful-dnd";
 

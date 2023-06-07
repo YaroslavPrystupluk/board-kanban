@@ -112,12 +112,13 @@ const App: FC = () => {
 
 			{loading ? (
 				<Spinner
+					data-testid="spinner"
 					style={{ position: "absolute", top: "50%", right: "50%" }}
 					animation="border"
 					variant="primary"
 				/>
 			) : error ? (
-				<Alert style={{ textAlign: "center" }} variant="danger">
+				<Alert data-testid="error" style={{ textAlign: "center" }} variant="danger">
 					Error: {error}
 				</Alert>
 			) : (

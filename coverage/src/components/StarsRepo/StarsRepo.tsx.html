@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.03% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/27</span>
+                <span class='fraction'>27/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.03% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/27</span>
+                <span class='fraction'>27/27</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -99,23 +99,23 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC } from "react";
 import { Istars } from "../../model/Iissues";
@@ -125,24 +125,24 @@ interface StarsRepoProps {
 	stars: Istars;
 }
 &nbsp;
-const StarsRepo: FC&lt;StarsRepoProps&gt; = <span class="fstat-no" title="function not covered" >({ stars }) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >	const formattedNumber = () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		if (stars.stargazers_count &gt; 1000) {</span>
-<span class="cstat-no" title="statement not covered" >			return `${Math.ceil(stars.stargazers_count / 1000)} K`;</span>
-<span class="cstat-no" title="statement not covered" >		} else {</span>
-<span class="cstat-no" title="statement not covered" >			return stars.stargazers_count;</span>
-<span class="cstat-no" title="statement not covered" >		}</span>
-<span class="cstat-no" title="statement not covered" >	};</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >	const starsNum = formattedNumber();</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >	return (</span>
-<span class="cstat-no" title="statement not covered" >		&lt;div style={{ display: "flex", alignItems: "center", fontSize: "20px" }}&gt;</span>
-<span class="cstat-no" title="statement not covered" >			&lt;AiFillStar style={{ color: "#e67700", fontSize: "30px" }} /&gt;</span>
-<span class="cstat-no" title="statement not covered" >			{starsNum} stars</span>
-<span class="cstat-no" title="statement not covered" >		&lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >	);</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+const StarsRepo: FC&lt;StarsRepoProps&gt; = ({ stars }) =&gt; {
+	const formattedNumber = () =&gt; {
+		if (stars.stargazers_count &gt; 1000) {
+			return `${Math.ceil(stars.stargazers_count / 1000)} K`;
+		} else {
+			return stars.stargazers_count;
+		}
+	};
+&nbsp;
+	const starsNum = formattedNumber();
+&nbsp;
+	return (
+		&lt;div data-testid="star" style={{ display: "flex", alignItems: "center", fontSize: "20px" }}&gt;
+			&lt;AiFillStar style={{ color: "#e67700", fontSize: "30px" }} /&gt;
+			{starsNum} stars
+		&lt;/div&gt;
+	);
+};
 export default StarsRepo;
 &nbsp;</pre></td></tr></table></pre>
 
@@ -151,7 +151,7 @@ export default StarsRepo;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-31T14:16:38.397Z
+                at 2023-06-06T14:05:34.816Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

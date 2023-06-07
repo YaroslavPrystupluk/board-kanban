@@ -12,7 +12,10 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs: FC<BreadcrumbsProps> = ({ owner, repo, repositoryUrl }) => {
 	return (
-		<StyledBreadcrumb className="mt-3" style={{ textTransform: "capitalize" }}>
+		<StyledBreadcrumb
+			data-testid="breadcrumbs"
+			className="mt-3"
+			style={{ textTransform: "capitalize" }}>
 			<Breadcrumb.Item href={`https://github.com/${owner}`} target="_blanck">
 				{owner}
 			</Breadcrumb.Item>

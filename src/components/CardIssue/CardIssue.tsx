@@ -23,14 +23,12 @@ const CardIssue: FC<CardIssueProps> = ({ issue, index }) => {
 		<Draggable draggableId={`${issue.id.toString()}`} key={issue.id} index={index}>
 			{(provided, snapshot) => (
 				<CardWrapp
+					data-testid="card-wrapper"
 					{...provided.draggableProps}
 					{...provided.dragHandleProps}
-					ref={provided.innerRef}>
-					<Card.Body
-						style={{
-							borderRadius: "10px",
-							background: snapshot.isDragging ? "#49bcf8" : "#eaf4fc",
-						}}>
+					ref={provided.innerRef}
+					isDragging={snapshot.isDragging}>
+					<Card.Body data-testid="card-body">
 						<Card.Title>{issue.title}</Card.Title>
 						<Card.Text data-testid="date">
 							#{issue.number} {date}
