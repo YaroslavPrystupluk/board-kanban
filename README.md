@@ -100,5 +100,3 @@ How to complete the task
 create a new public repo on Github
 develop the application according to the requirements
 send us the link to your repo
-
-> > > > > > > origin/dev
