@@ -5,6 +5,11 @@ import CardIssue from "../CardIssue";
 import TabletCards from "../../TabletCards/TabletCards";
 import { CardWrapp } from "../styledCardItem";
 
+interface TabletCardsProps {
+	// Інші властивості
+	children?: React.ReactNode;
+}
+
 const mockIssue = {
 	id: 1,
 	number: 2,
