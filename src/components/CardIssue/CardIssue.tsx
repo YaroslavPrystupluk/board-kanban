@@ -6,12 +6,12 @@ import { Draggable } from "react-beautiful-dnd";
 
 import { CardWrapp } from "./styledCardItem";
 
-interface CardissueProps {
+interface CardIssueProps {
 	issue: Iissues;
 	index: number;
 }
 
-const Cardissue: FC<CardissueProps> = ({ issue, index }) => {
+const Cardissue: FC<CardIssueProps> = ({ issue, index }) => {
 	// const today = new Date();
 	// const updatedate = new Date(issue.updated_at);
 	// const diffInMs = today.getTime() - updatedate.getTime();
