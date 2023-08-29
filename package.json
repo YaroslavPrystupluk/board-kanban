@@ -1,6 +1,7 @@
 {
 	"name": "kanban",
 	"private": true,
+	"homepage": "https://yaroslavprystupluk.github.io/kanban/",
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
