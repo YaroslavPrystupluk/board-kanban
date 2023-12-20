@@ -1,9 +1,9 @@
 {
 	"name": "kanban",
 	"private": true,
-	"homepage": "https://yaroslavprystupluk.github.io/kanban/",
 	"version": "0.0.0",
 	"type": "module",
+	"homepage": "https://yaroslavprystupluk.github.io/kanban/",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
@@ -13,7 +13,9 @@
 		"prettier": "prettier --write .",
 		"eslint:fix": "eslint --fix .",
 		"test": "vitest",
-		"coverage": "vitest run --coverage"
+		"coverage": "vitest run --coverage",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d dist"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.9.5",

@@ -8,8 +8,6 @@ interface starsState {
 	loading: boolean;
 	error: string | null;
 }
-type Owner = string;
-type Repo = string;
 
 const initialState: starsState = {
 	stars: { stargazers_count: 0, id: 0 },
@@ -17,7 +15,7 @@ const initialState: starsState = {
 	error: null,
 };
 
-export const fetchStars = createAsyncThunk<Istars, [Owner, Repo], { rejectValue: string }>(
+export const fetchStars = createAsyncThunk<Istars, [string, string], { rejectValue: string }>(
 	"stars/fetchStars",
 	async ([owner, repo], thunkAPI) => {
 		try {
@@ -25,7 +23,7 @@ export const fetchStars = createAsyncThunk<Istars, [Owner, Repo], { rejectValue:
 
 			return response.data;
 		} catch (error) {
-			return thunkAPI.rejectWithValue(error.message);
+			return thunkAPI.rejectWithValue((error as Error).message);
 		}
 	},
 );
@@ -45,7 +43,7 @@ export const starsSlice = createSlice({
 			})
 			.addCase(fetchStars.rejected, (state, action) => {
 				state.loading = false;
-				state.error = action.error.message;
+				state.error = action.payload || "Something went wrong";
 			});
 	},
 });

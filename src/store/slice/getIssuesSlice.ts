@@ -8,8 +8,6 @@ interface issuesState {
 	loading: boolean;
 	error: string | null;
 }
-type Owner = string;
-type Repo = string;
 
 const initialState: issuesState = {
 	issues: [],
@@ -17,7 +15,7 @@ const initialState: issuesState = {
 	error: null,
 };
 
-export const fetchIssues = createAsyncThunk<Iissues[], [Owner, Repo], { rejectValue: string }>(
+export const fetchIssues = createAsyncThunk<Iissues[], [string, string], { rejectValue: string }>(
 	"issues/fetchIssues",
 	async ([owner, repo], thunkAPI) => {
 		try {
@@ -25,7 +23,7 @@ export const fetchIssues = createAsyncThunk<Iissues[], [Owner, Repo], { rejectVa
 
 			return response.data;
 		} catch (error) {
-			return thunkAPI.rejectWithValue(error.message);
+			return thunkAPI.rejectWithValue((error as Error).message);
 		}
 	},
 );
@@ -49,7 +47,7 @@ export const searchIssuesSlice = createSlice({
 			})
 			.addCase(fetchIssues.rejected, (state, action) => {
 				state.loading = false;
-				state.error = action.error.message;
+				state.error = action.payload || "Something went wrong";
 			});
 	},
 });
