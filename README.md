@@ -1,3 +1,6 @@
+#Github Kanban Board
+Implement GitHub repo issues viewer as a kanban board
+
 Requirements
 User should enter repo URL in the input on top of the page and press "Load". For example: https://github.com/facebook/react.
 App loads issues for the repo using Github API.
